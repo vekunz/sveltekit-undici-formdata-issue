@@ -1,38 +1,44 @@
-# create-svelte
+# sveltekit-undici-formdata-issue
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This repository demonstrates an issue with the current SvelteKit version that uses undici for the fetch API.
 
-## Creating a project
+This repo has two branches, with two different versions of SvelteKit, because the issue changed a bit, after the latest update.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte
-
-# create a new project in my-app
-npm init svelte my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+To reproduce the issues, just execute this two commands on each branch:
 
 ```bash
-npm run dev
+npm install
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm run test
 ```
 
-## Building
+## 1.0.0-beta.359
+This branch contains SvelteKit 1.0.0-beta.359.
 
-To create a production version of your app:
+With this SvelteKit version, you get this error:
+```
+TypeError: Request.formData: undefined
+ ❯ Object.webidl.errors.exception ../../../../../../../C:/sveltekit-undici-request-formdata-bug/node_modules/@sveltejs/kit/dist/node/polyfills.js:817:10      
+ ❯ Request.formData ../../../../../../../C:/sveltekit-undici-request-formdata-bug/node_modules/@sveltejs/kit/dist/node/polyfills.js:2867:24
+ ❯ src/lib/dummy.test.js:11:39
+      9|     });
+     10| 
+     11|     const requestData = await request.formData();
+       |                                       ^
 
-```bash
-npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+## 1.0.0-beta.358
+This branch contains SvelteKit 1.0.0-beta.358.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+With this SvelteKit version, you get this error:
+```
+NotSupportedError: multipart/form-data not supported
+ ❯ Request$2.formData ../../../../../../../C:/sveltekit-undici-request-formdata-bug/node_modules/@sveltejs/kit/dist/node/polyfills.js:1921:13
+ ❯ src/lib/dummy.test.js:11:39
+      9|     });
+     10| 
+     11|     const requestData = await request.formData();
+       |                                       ^
+
+```
