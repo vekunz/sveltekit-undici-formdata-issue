@@ -2,6 +2,8 @@
 
 This repository demonstrates an issue with the current SvelteKit version that uses undici for the fetch API.
 
+This reproduction belongs to this GitHub Issue https://github.com/sveltejs/kit/issues/5349.
+
 This repo has two branches, with two different versions of SvelteKit, because the issue changed a bit, after the latest update.
 
 To reproduce the issues, just execute this two commands on each branch:
